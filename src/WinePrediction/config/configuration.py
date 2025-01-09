@@ -1,6 +1,6 @@
 from WinePrediction.constants import *
 from WinePrediction.utils.common import create_directories,read_yaml
-from WinePrediction.entity.config_entity import DataIngestionConfig,DataValidationConfig
+from WinePrediction.entity.config_entity import DataIngestionConfig,DataValidationConfig,DataTransformationConfig
 
 class ConfigurationManager:
     def __init__(
@@ -16,6 +16,18 @@ class ConfigurationManager:
         create_directories([self.config.artifacts_root])
 
 
+    
+    def get_data_transformation_config(self) -> DataTransformationConfig:
+        config = self.config.data_transformation
+
+        create_directories([config.root_dir])
+
+        data_transformation_config = DataTransformationConfig(
+            root_dir=config.root_dir,
+            data_path=config.data_path,
+        )
+
+        return data_transformation_config
 
     
     def get_data_validation_config(self) -> DataValidationConfig:
